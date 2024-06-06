@@ -1,0 +1,56 @@
+@model List<GetProductDto>
+
+<h1 class="text-center text-success mb-4">Products List</h1>
+
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <a asp-action="CreateProduct" class="btn btn-primary btn-block">Create New Product</a>
+        </div>
+        <div class="col-md-6">
+            <form method="get" asp-action="GetProducts">
+                <button type="submit" class="btn btn-info btn-block">Refresh</button>
+            </form>
+        </div>
+    </div>
+
+    <div style=" padding:30px; padding-bottom:50px; background-color:greenyellow"  class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Product Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Market ID</th>
+                    <th>Category ID</th>
+                    <th>Create At</th>
+                    <th>Update At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td>@product.Id</td>
+                        <td>@product.ProductName</td>
+                        <td>@product.Description</td>
+                        <td>@product.Price</td>
+                        <td>@product.MarketId</td>
+                        <td>@product.CategoryId</td>
+                        <td>@product.CreateAt</td>
+                        <td>@product.UpdateAt</td>
+                        <td>
+                            <a asp-action="GetProductById" asp-route-productId="@product.Id" class="btn btn-info btn-sm">View</a>
+                            <a asp-action="UpdateProduct" asp-route-id="@product.Id" class="btn btn-warning btn-sm">Edit</a>
+                            <form asp-action="RemoveProduct" asp-route-productId="@product.Id" method="post" onsubmit="return confirm('Are you sure you want to delete this Product?');">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

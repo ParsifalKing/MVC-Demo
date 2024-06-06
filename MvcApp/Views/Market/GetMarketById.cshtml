@@ -1,0 +1,36 @@
+@model GetMarketDto
+
+<h1 style="margin-left:40%; color:green">Market List</h1>
+<form method="get" asp-action="GetMarketById" class="mt-3"></form>
+<div style="height: 331px; width: 100%">
+    
+<table class="table mt-4">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>CreateAt</th>
+            <th>UpdateAt</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+
+            <tr>
+                <td>@Model.Id</td>
+                <td>@Model.MarketName</td>
+                <td>@Model.CreateAt</td>
+                <td>@Model.UpdateAt</td>
+                <td>
+                    <a asp-action="GetMarketById" asp-route-MarketId="@Model.Id" class="btn btn-info" >View</a> 
+                    <a asp-action="UpdateMarket" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a> 
+                    <form asp-action="RemoveMarket" asp-route-MarketId="@Model.Id" method="post" onsubmit="return confirm('Are you sure you want to delete this Market?');">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        
+    </tbody>
+</table>
+
+</div>

@@ -1,0 +1,52 @@
+@model List<GetMarketDto>
+
+<h1 class="text-center text-success mb-4">Markets List</h1>
+
+<div class="container">
+    <div class="row mb-3">
+        <div class="col">
+            <a asp-action="CreateMarket" class="btn btn-primary">Create New Market</a>
+        </div>
+        <div class="col text-right">
+            <form method="get" asp-action="GetMarket">
+                <button type="submit" class="btn btn-info">Refresh</button>
+            </form>
+        </div>
+    </div>
+
+    <div style="padding-bottom:80px; background-color:blue" class="table-responsive ">
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Market Name</th>
+                    <th>Description</th>
+                    <th>Address</th>
+                    <th>Create At</th>
+                    <th>Update At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var market in Model)
+                {
+                    <tr>
+                        <td>@market.Id</td>
+                        <td>@market.MarketName</td>
+                        <td>@market.Description</td>
+                        <td>@market.Address</td>
+                        <td>@market.CreateAt</td>
+                        <td>@market.UpdateAt</td>
+                        <td>
+                            <a asp-action="GetMarketById" asp-route-MarketId="@market.Id" class="btn btn-info">View</a>
+                            <a asp-action="UpdateMarket" asp-route-id="@market.Id" class="btn btn-warning">Edit</a>
+                            <form asp-action="RemoveMarket" asp-route-MarketId="@market.Id" method="post" onsubmit="return confirm('Are you sure you want to delete this Market?');">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
